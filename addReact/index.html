@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+
+
+    <title>React JS</title>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        //PostItem.js
+        const courses = [
+            {
+                "id": 15,
+                "title": "HTML CSS Pro",
+                "slug": "htmlcss",
+                "description": "Từ cơ bản tới chuyên sâu, thực hành 8 dự án, hàng trăm bài tập, trang hỏi đáp riêng, cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.",
+                "image": "courses/15/62f13d2424a47.png",
+                "icon": "courses/15/62385d6c63dfa.png",
+                "video_type": "upload",
+                "video": null,
+                "old_price": 2500000,
+                "price": 1299000,
+                "pre_order_price": 699000,
+                "students_count": 3837,
+                "is_pro": true,
+                "is_coming_soon": false,
+                "is_selling": true,
+                "published_at": "2022-08-18T17:00:00.000000Z",
+                "is_registered": false,
+                "user_progress": 0,
+                "last_completed_at": null,
+                "image_url": "https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png",
+                "icon_url": "https://files.fullstack.edu.vn/f8-prod/courses/15/62385d6c63dfa.png",
+                "video_url": "",
+                "landing_page_url": "/landing/htmlcss",
+                "is_pre_order": false,
+                "is_published": true 
+            },
+            {
+                "id": 27,
+                "title": "Ngôn ngữ tiền xử lý Sass",
+                "slug": "sass",
+                "description": "Đây là một khóa học nhỏ được tách ra từ 2 chương học trong khóa HTML CSS Pro. Kiến thức về Sass trong khóa này bạn có thể áp dụng ngay vào các dự án của bạn.",
+                "image": "courses/27/64e184ee5d7a2.png",
+                "icon": "courses/27/64e0daf212fad.png",
+                "video_type": "upload",
+                "video": "courses/27/oeT5zTmdk8KlHwU2meMJpnR7uihkX6OvYxnkjiB9.mp4",
+                "old_price": 400000,
+                "price": 299000,
+                "pre_order_price": 0,
+                "students_count": 0,
+                "is_pro": true,
+                "is_coming_soon": false,
+                "is_selling": true,
+                "published_at": "2023-08-19T15:06:00.000000Z",
+                "is_registered": false,
+                "user_progress": 0,
+                "last_completed_at": null,
+                "image_url": "https://files.fullstack.edu.vn/f8-prod/courses/27/64e184ee5d7a2.png",
+                "icon_url": "https://files.fullstack.edu.vn/f8-prod/courses/27/64e0daf212fad.png",
+                "video_url": "https://videos.fullstack.edu.vn/f8-prod/courses/27/oeT5zTmdk8KlHwU2meMJpnR7uihkX6OvYxnkjiB9.mp4",
+                "landing_page_url": "/landing/sass",
+                "is_pre_order": false,
+                "is_published": true
+    },
+    {
+                "id": 19,
+                "title": "JavaScript Pro",
+                "slug": "javascript",
+                "description": "Khóa học JavaScript Pro",
+                "image": "courses/19/62f13cb607b4b.png",
+                "icon": "courses/19/62f13cb685c81.png",
+                "video_type": "upload",
+                "video": null,
+                "old_price": 0,
+                "price": 0,
+                "pre_order_price": 0,
+                "students_count": 0,
+                "is_pro": true,
+                "is_coming_soon": true,
+                "is_selling": false,
+                "published_at": "2024-02-29T17:00:00.000000Z",
+                "is_registered": false,
+                "user_progress": 0,
+                "last_completed_at": null,
+                "image_url": "https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png",
+                "icon_url": "https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb685c81.png",
+                "video_url": "",
+                "landing_page_url": "/landing/javascript",
+                "is_pre_order": false,
+                "is_published": false
+    },
+    {
+                "id": 20,
+                "title": "NextJS Pro",
+                "slug": "reactjs-pro",
+                "description": "Khóa học NextJS Pro",
+                "image": "courses/20/648020fc16597.png",
+                "icon": "courses/20/648020fcc8000.png",
+                "video_type": "upload",
+                "video": null,
+                "old_price": 0,
+                "price": 0,
+                "pre_order_price": 0,
+                "students_count": 0,
+                "is_pro": true,
+                "is_coming_soon": true,
+                "is_selling": false,
+                "published_at": "2024-05-31T17:00:00.000000Z",
+                "is_registered": false,
+                "user_progress": 0,
+                "last_completed_at": null,
+                "image_url": "https://files.fullstack.edu.vn/f8-prod/courses/20/648020fc16597.png",
+                "icon_url": "https://files.fullstack.edu.vn/f8-prod/courses/20/648020fcc8000.png",
+                "video_url": "",
+                "landing_page_url": "/landing/reactjs-pro",
+                "is_pre_order": false,
+                "is_published": false
+    }
+
+    ]
+        //Cach1
+        const CourseItem = props => (
+            <div>
+                <h2>{props.title}</h2>
+                <img src={props.img} />
+                <p>{props.description}</p>
+                <p>{props.studentsCount}</p>
+            </div>
+        )
+
+        //Cach2
+        // const CourseItem = ({ course }) => (
+        //     <div>
+        //         <h2>{course.title}</h2>
+        //         <img src={course.image_url} />
+        //         <p>{course.description}</p>
+        //         <p>{course.students_count}</p>
+        //     </div>
+        // )
+        // function PostItem(props){
+        //     console.log(props);
+        //     return (
+        //         <div className="post-item">
+        //             <h2 className="post-title">{props.title}</h2>
+        //             <p className="post-desc">{props.description}</p>
+        //             <p className="post-published">{props.publishedAt}</p>
+        //         </div>
+        //     )
+        // }
+       
+        // function Header(){
+        //     return(
+        //         <div className="header">New Header</div>
+        //     )
+        // }
+        // class Content extends React.Component{
+        //     render(){
+        //         return (
+        //             <div className="content">New Content</div>
+        //         )
+        //     }
+        // }
+        // const app = (
+        //     <div className="wrapper">
+        //         <Header></Header>
+        //         <Content></Content>
+        //         <div className="footer">Footer</div>
+
+
+        //     </div>
+        // )
+        // const Form = {
+        //     Input() {
+        //         return <input />
+        //     },
+        //     Checkbox() {
+        //         return <input type="checkbox" />
+        //     }
+        // }
+        function App () {
+            return (
+                <div id="wrapper">
+                    
+                     {courses.map((course) => (
+                        <CourseItem
+                            key={course.id}
+                            course={course}
+                            title={course.title}
+                            img={course.image_url}
+                            description={course.description}
+                            studentsCount={course.students_count}
+                        />
+                    ))}
+                </div>
+                // <div id="wrapper">
+                //      <button onClick = {() => console.log(Math.random())}> Click me! </button> 
+                // </div>
+                //  <div id="wrapper">
+                //     <Form.Input />
+                //     <Form.Checkbox />
+                // </div>
+            )
+        }
+        ReactDOM.render(<App/>, document.getElementById('root'));
+        // ReactDOM.render(app, document.getElementById('root'));
+
+        // const courses = [
+        //     {
+        //         name: 'Javascript,HTML',
+        //     },
+        //     {
+        //         name: 'Responsive Web Design',
+        //     },
+        //     {
+        //         name: 'ReactJS'
+        //     }
+        // ]
+        // const jsx = (
+        //     <ul>
+        //         {courses.map((course,index) =>
+        //             <li key = {index} >{course.name}</li>
+        //         )}
+        //     </ul>
+        // )
+        // console.log(jsx);
+        // ReactDOM.render(jsx, document.getElementById('root'));
+        //DOM
+//         const h1DOM = document.createElement('h1');
+//         h1DOM.title = 'Hello Word';
+//         h1DOM.className = 'heading';
+//         h1DOM.innerText = 'Hello guys';
+
+//         document.body.appendChild(h1DOM);
+         
+//     //React
+//     const h1React = React.createElement('h1', {
+//         title: 'Hello World',
+//         className: 'heading',
+        
+//     },'Hello everyone');
+//    console.dir(h1DOM);
+//    console.log(h1React);
+//         const ulDOM = document.createElement('ul');
+//         ulDOM.id = 'ul-id';
+//         ulDOM.style = 'color: red;font-size: 30px';
+//         const liDOM1 = document.createElement('li');
+//         liDOM1.innerText = 'Javascript';
+//         liDOM1.id = 'li-1'
+//         const liDOM2 = document.createElement('li');
+//         liDOM2.innerText = 'ReactJS';
+//         ulDOM.appendChild(liDOM1);
+//         ulDOM.appendChild(liDOM2);
+
+//         document.body.appendChild(ulDOM);
+
+//         const ulReact = React.createElement(
+//             'ul',
+//              {
+//                  id: 'ul-id',
+//                  style: 'color: blue ;font-size: 30px' 
+//              },
+//                 React.createElement('li', {id : 'li-1'} ,'Javascript'),
+//                 React.createElement('li', null, 'ReactJS')
+//                );
+//         console.log(ulDOM);
+//         console.log(ulReact);
+
+            // const postItem = React.createElement(
+            //     'div',
+            //     {
+            //         className: 'post-item'
+            //     },
+            //     React.createElement(
+            //         'h2',
+            //         {
+            //             title: 'Hoc React JS'
+            //         },
+            //         'Hoc React JS'
+                    
+                    
+            //     ),
+            //     React.createElement(
+            //         'p',
+            //         {},
+            //         'Hoc React JS la hoc tap'
+            //     )
+            // )
+            // //Get root element
+            // const container = document.getElementById('root')
+            // //React@17
+            // //render
+            // // ReactDOM.render(postItem, root)
+            // //React@18
+            // const root = ReactDOM.createRoot(container);
+            // root.render(postItem);
+            // ReactDOM.createRoot(container).render(postItem)
+
+
+
+    </script>
+</body>
+</html>
+
