@@ -230,4 +230,77 @@ function App() {
   );
 }
  ```  
+**useState hook**
+```JavaScript 
+const[counter, setCounter] = useState(1)
+  const handleIncrease = () => {
+    setCounter(counter +1);
+  }
+  return (
+    <div className="App">
+
+      <h1>{counter}</h1>
+      <button onClick={handleIncrease}>Increase </button>
+   
+    </div>
+  );
+```
+```JavaScript
+function App() {
+const [liked, setLiked] = useState(true);
+ const handleChange = (e) => {
+    setLiked(e.target.checked)
+ }
+  return (
+    <div className="App">
+      <label>
+
+      
+      <input
+      type='checkbox'
+      checked={liked}
+      onChange={handleChange}
+      />
+      I like you
+      </label>
+      <p>You {liked ? 'liked' : 'did not like'} you</p>
+    </div>
+  );
+}
+
+```
+```JavaScript
+function App() {
+const [name, setName] = useState('Anh Quoc');
+const [ age, setAge ] = useState(18);
+
+const handleChangeName = (e) => {
+  setName(e.target.value)
+}
+const handleIncreaseAge= () => {
+  setAge(age + 1);
+}
+ 
+  return (
+    <div className="App">
+      <input
+          value={name}
+          onChange={handleChangeName}
+      />
+      <button
+      onClick={handleIncreaseAge}
+      >
+        Increase Age
+      </button>
+      <p>Hello, My name is {name}, I am {age} year old</p>
+    </div>
+  );
+}
+```
+**useEffect hook**
+1. useEffect(callback)
+Gọi callback mỗi khi component re-render
+Gọi callback sau khi component thêm element vào DOM
+2. useEffect(callback,[])
+Chỉ gọi callback 1 lần sau khi component mounted
 
