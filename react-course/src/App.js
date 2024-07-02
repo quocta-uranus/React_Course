@@ -1,29 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Close from "./close-circle.svg";
 
-
-function App(props) {
+function App() {
   // const [showModal, setShowModal] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [name, setName] = useState("");
   const [displayNames, setDisplayNames] = useState([]);
   const [showLimitPopup, setShowLimitPopup] = useState(false);
-  const [showEmptyPopup, setShowEmptyPopup] = useState(false);
-
+  const [showEmptyPopup, setShowEmptyPopup] = useState(true);
+  const [showList, setShowList] = useState(false);
   const handleSubmit = () => {
-    if (displayNames.length < 10) {
-      setDisplayNames((prevDisplayNames) => [...prevDisplayNames, name]);
-      setName("");
-      setShowInput(false);
-    } else {
-      setShowLimitPopup(true);
-      setShowInput(false);
-    }
+    // if (displayNames.length < 10) {
+    setDisplayNames((prevDisplayNames) => [...prevDisplayNames, name]);
+    setName("");
+    setShowInput(false);
+    // } else {
+    //   setShowLimitPopup(true);
+    //   setShowInput(false);
+    // }
   };
+  useEffect(() => {
+    if (displayNames.length > 9) {
+      setShowLimitPopup(true);
+    }
+  }, [displayNames]);
 
   const handleOpenPopup = () => {
     setShowInput(true);
+    if (displayNames.length > 9) {
+      setShowInput(false);
+      setShowLimitPopup(true);
+    }
   };
 
   const handleClose = () => {
@@ -31,8 +39,7 @@ function App(props) {
     setShowLimitPopup(false);
     setShowEmptyPopup(false);
     setName("");
-
-  };
+  };  
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -42,28 +49,41 @@ function App(props) {
     setDisplayNames((prevDisplayNames) => {
       const newDisplayNames = [...prevDisplayNames];
       newDisplayNames.splice(index, 1);
-      if (newDisplayNames.length === 0) {
-        setShowEmptyPopup(true);
-      }
+      // if (newDisplayNames.length === 0) {
+      //   setShowEmptyPopup(true);
+      // }
       return newDisplayNames;
     });
   };
+  useEffect(() => {
+    if (displayNames.length === 0) {
+      setShowEmptyPopup(!showEmptyPopup);
+      setShowList(false);
+    } else {
+      setShowList(true);
+    }
+  }, [displayNames]);
   const handleEmptyPopupClose = () => {
     setShowEmptyPopup(false);
     setShowInput(true);
   };
+  console.log(showEmptyPopup);
+  // console.log(displayNames);
+  function handleKeyDown(event) {
+    if (event.keyCode === 13) {
+      setDisplayNames((prevDisplayNames) => [...prevDisplayNames, name]);
+      setShowInput(false);
 
-  console.log(displayNames);
-
+      setName("");
+    }
+  }
   return (
     <div className="App">
       {showInput && (
         <div className="popup">
           <div className="header">
             <p></p>
-            <img
-             className="close"
-             onClick={handleClose} src={Close} />
+            <img className="close" onClick={handleClose} src={Close} />
           </div>
 
           <input
@@ -72,6 +92,7 @@ function App(props) {
             className="input"
             onChange={handleChangeName}
             autoFocus
+            onKeyDown={handleKeyDown}
           />
           <div className="btn">
             <button
@@ -92,9 +113,7 @@ function App(props) {
         <div className="popup-limit">
           <div className="header">
             <p></p>
-            <img
-            className="close"
-            onClick={handleClose} src={Close} />
+            <img className="close" onClick={handleClose} src={Close} />
           </div>
           <div className="content-limit">
             <div>
@@ -107,9 +126,7 @@ function App(props) {
         <div className="popup-empty">
           <div className="header">
             <p></p>
-            <img
-            className="close" 
-            onClick={handleClose} src={Close} />
+            <img className="close" onClick={handleClose} src={Close} />
           </div>
 
           <div className="content-empty">
@@ -120,25 +137,34 @@ function App(props) {
           </div>
         </div>
       )}
-
-      <div className="list">
-        <div className="header">
-          <p>LIST </p>
+      {showList && (
+        <div className="list">
+          <div className="header">
+            <p>LIST </p>
+          </div>
+          <hr></hr>
+          <div className="">
+            {displayNames.map((displayName, index) => (
+              <div className="content" key={index}>
+                <p >
+                  {index + 1} : {displayName}
+                </p>
+                <input
+                className="check"
+                type="checkbox"
+                value={displayName}
+                
+                />
+                <img
+                  className="close"
+                  onClick={() => handleDeleteItem(index)}
+                  src={Close}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <hr></hr>
-        <div className="">
-          {displayNames.map((displayName, index) => (
-            <div className="content" key={index}>
-              <p>
-                {index + 1} : {displayName}
-              </p>
-              <img
-              className="close"
-              onClick={() => handleDeleteItem(index)} src={Close} />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
 
       <button className="add-btn" onClick={handleOpenPopup}>
         ADD

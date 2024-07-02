@@ -65,7 +65,6 @@
 }
 .App {
   display: flex;
-  
   justify-content: center;
   align-items: center;
   
@@ -104,11 +103,14 @@
 
 }
 .add-btn {
-  height: 40px;
-  width: 100px;
+  height: 60px;
+  width: 120px;
   background-color: red;
   border-radius: 8px;
   cursor: pointer;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
 
 
 }
@@ -117,6 +119,7 @@
   justify-content: space-between;
 
 }
+
 .content-limit {
   display: flex;
   flex-direction: column;
