@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Close from "./close-circle.svg";
-
+import Trash from "./trash.svg";
 function App() {
-  // const [showModal, setShowModal] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [name, setName] = useState("");
   const [displayNames, setDisplayNames] = useState([]);
+  const [checkedNames, setCheckedNames] = useState([]);
   const [showLimitPopup, setShowLimitPopup] = useState(false);
   const [showEmptyPopup, setShowEmptyPopup] = useState(true);
   const [showList, setShowList] = useState(false);
+
   const handleSubmit = () => {
-    // if (displayNames.length < 10) {
     setDisplayNames((prevDisplayNames) => [...prevDisplayNames, name]);
     setName("");
     setShowInput(false);
-    // } else {
-    //   setShowLimitPopup(true);
-    //   setShowInput(false);
-    // }
   };
+
   useEffect(() => {
     if (displayNames.length > 9) {
       setShowLimitPopup(true);
@@ -28,10 +25,10 @@ function App() {
 
   const handleOpenPopup = () => {
     setShowInput(true);
-    if (displayNames.length > 9) {
-      setShowInput(false);
-      setShowLimitPopup(true);
-    }
+    // if (displayNames.length > 9) {
+    //   setShowInput(false);
+    //   setShowLimitPopup(true);
+    // }
   };
 
   const handleClose = () => {
@@ -39,44 +36,73 @@ function App() {
     setShowLimitPopup(false);
     setShowEmptyPopup(false);
     setName("");
-  };  
+  };
 
   const handleChangeName = (e) => {
     setName(e.target.value);
   };
 
-  const handleDeleteItem = (index) => {
-    setDisplayNames((prevDisplayNames) => {
-      const newDisplayNames = [...prevDisplayNames];
-      newDisplayNames.splice(index, 1);
-      // if (newDisplayNames.length === 0) {
-      //   setShowEmptyPopup(true);
-      // }
-      return newDisplayNames;
-    });
-  };
   useEffect(() => {
     if (displayNames.length === 0) {
       setShowEmptyPopup(!showEmptyPopup);
       setShowList(false);
     } else {
+      setShowEmptyPopup(false);
       setShowList(true);
     }
   }, [displayNames]);
+
   const handleEmptyPopupClose = () => {
     setShowEmptyPopup(false);
     setShowInput(true);
   };
-  console.log(showEmptyPopup);
-  // console.log(displayNames);
-  function handleKeyDown(event) {
+
+  const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       setDisplayNames((prevDisplayNames) => [...prevDisplayNames, name]);
       setShowInput(false);
-
       setName("");
     }
-  }
+    if(event.keyCode === 27) {
+      setShowInput(false);
+      setShowLimitPopup(false);
+      setShowEmptyPopup(false);
+      setName("");
+    }
+  };
+  const handleDeleteItem = (index) => {
+    setDisplayNames((prevDisplayNames) => {
+      const newDisplayNames = [...prevDisplayNames];
+      newDisplayNames.splice(index, 1);
+      return newDisplayNames;
+    });
+
+    setCheckedNames((prevCheckedNames) => {
+      const newCheckedNames = [...prevCheckedNames];
+      newCheckedNames.splice(index, 1);
+      return newCheckedNames;
+    });
+  };
+  console.log(displayNames);
+  console.log(checkedNames);
+
+  const handleCheckboxChange = (index) => {
+    setCheckedNames((prevCheckedNames) => {
+      const newCheckedNames = [...prevCheckedNames];
+      newCheckedNames[index] = !prevCheckedNames[index];
+      return newCheckedNames;
+    });
+  };
+  const handleDelete = () => {
+    setDisplayNames((prevDisplayNames) =>
+      prevDisplayNames.filter((_, index) => !checkedNames[index])
+    );
+    setCheckedNames((prevCheckedNames) =>
+      prevCheckedNames.filter((_, index) => !checkedNames[index])
+    );
+
+  };
+
   return (
     <div className="App">
       {showInput && (
@@ -141,25 +167,26 @@ function App() {
         <div className="list">
           <div className="header">
             <p>LIST </p>
+            <img className="trash" src={Trash} onClick={handleDelete} />
           </div>
           <hr></hr>
           <div className="">
             {displayNames.map((displayName, index) => (
               <div className="content" key={index}>
-                <p >
+                <p
+                  checked={checkedNames[index]}
+                  onDoubleClick={() => handleCheckboxChange(index)}
+                  className={checkedNames[index] ? "dimmed" : "undimmed"}
+                >
                   {index + 1} : {displayName}
                 </p>
-                <input
-                className="check"
-                type="checkbox"
-                value={displayName}
-                
-                />
-                <img
-                  className="close"
-                  onClick={() => handleDeleteItem(index)}
-                  src={Close}
-                />
+                <div className="btn-content">
+                  <img
+                    className="close"
+                    onClick={() => handleDeleteItem(index)}
+                    src={Close}
+                  />
+                </div>
               </div>
             ))}
           </div>
