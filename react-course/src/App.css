@@ -1,57 +1,55 @@
 .popup {
-    position: fixed;
-    top: 30%;
-    /* left: 50%; */
-    transform: translate(-50%, -50%);
-    background-color: #d0bcbc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
-    width: 350px;
-    height: 200px;
-    padding: 20px;
-    animation: scaleIn 0.3s ease-in-out forwards;
+  position: fixed;
+  top: 30%;
+  /* left: 50%; */
+  transform: translate(-50%, -50%);
+  background-color: #d0bcbc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
+  width: 350px;
+  height: 200px;
+  padding: 20px;
+  animation: scaleIn 0.3s ease-in-out forwards;
 }
 .popup-limit {
-    position: fixed;
-    top: 30%;
-    /* left: 50%; */
-    transform: translate(-50%, -50%);
-    background-color: #b1e77e;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
-    width: 350px;
-    height: 200px;
-    padding: 20px;
-    animation: scaleIn 0.3s ease-in-out forwards;
+  position: fixed;
+  top: 30%;
+  /* left: 50%; */
+  transform: translate(-50%, -50%);
+  background-color: #b1e77e;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
+  width: 350px;
+  height: 200px;
+  padding: 20px;
+  animation: scaleIn 0.3s ease-in-out forwards;
 }
 .popup-empty {
   position: fixed;
-    top: 30%;
-    /* left: 50%; */
-    transform: translate(-50%, -50%);
-    background-color: #42bfe1;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
-    width: 350px;
-    height: 200px;
-    padding: 20px;
-    animation: scaleIn 0.3s ease-in-out forwards;
+  top: 30%;
+  /* left: 50%; */
+  transform: translate(-50%, -50%);
+  background-color: #42bfe1;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(117, 104, 104, 0.2);
+  width: 350px;
+  height: 200px;
+  padding: 20px;
+  animation: scaleIn 0.3s ease-in-out forwards;
 }
 @keyframes scaleIn {
   0% {
-      transform: scale(0.5);
-      opacity: 0;
+    transform: scale(0.5);
+    opacity: 0;
   }
 
   100% {
-      transform: scale(1);
-      opacity: 1;
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-
 .list {
-
   position: absolute;
   top: 5%;
   left: 5%;
@@ -60,15 +58,13 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 350px;
-  
+
   padding: 10px;
 }
 .App {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  
 }
 .header {
   display: flex;
@@ -81,13 +77,11 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(109, 109, 109, 0.2);
   border: none;
-
 }
 .btn {
   margin-top: 50px;
   display: flex;
   justify-content: space-around;
-  
 }
 .sub-btn {
   height: 40px;
@@ -103,8 +97,6 @@
   background-color: rgb(108, 200, 212);
   border-radius: 8px;
   cursor: pointer;
-
-
 }
 .add-btn {
   height: 60px;
@@ -116,14 +108,11 @@
   font-size: 1.6rem;
   font-weight: 700;
   margin-top: 30px;
-
-
 }
 .content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .content-limit {
@@ -131,30 +120,28 @@
   flex-direction: column;
   height: 160px;
   align-items: center;
-  justify-content: center ;
-  
+  justify-content: center;
 }
 .limit {
   font-weight: 600;
   font-size: 1.6rem;
-  color: red ;
+  color: red;
 }
 .content-empty {
   display: flex;
   flex-direction: column;
   height: 160px;
   align-items: center;
-  justify-content: center ;
+  justify-content: center;
 }
 .ok-btn {
-	background: #222;
-	color: #fff;
+  background: #222;
+  color: #fff;
   width: 100px;
   height: 50px;
   font-size: 1.6rem;
   border-radius: 8px;
   cursor: pointer;
-
 }
 .empty {
   font-size: 1.6rem;
@@ -189,10 +176,8 @@
 .btn-content {
   display: flex;
   align-items: center;
-
 }
 .check {
   height: 20px;
   width: 20px;
-
 }
