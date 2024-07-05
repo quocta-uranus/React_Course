@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from "react";
 
 const initialState = {
   showInput: false,
-  name: '',
+  name: "",
   displayNames: [],
   checkedNames: [],
   showLimitPopup: false,
@@ -14,18 +14,18 @@ const TodoContext = createContext();
 
 const todoReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_SHOW_INPUT':
+    case "SET_SHOW_INPUT":
       return { ...state, showInput: action.payload };
-    case 'SET_NAME':
+    case "SET_NAME":
       return { ...state, name: action.payload };
-    case 'ADD_NAME':
+    case "ADD_NAME":
       return {
         ...state,
         displayNames: [...state.displayNames, action.payload],
-        name: '',
+        name: "",
         showInput: false,
       };
-    case 'REMOVE_NAME':
+    case "REMOVE_NAME":
       const newDisplayNames = [...state.displayNames];
       newDisplayNames.splice(action.payload, 1);
       const newCheckedNames = [...state.checkedNames];
@@ -34,32 +34,32 @@ const todoReducer = (state, action) => {
         ...state,
         displayNames: newDisplayNames,
         checkedNames: newCheckedNames,
-
       };
-    case 'TOGGLE_NAME':
+    case "TOGGLE_NAME":
       const updatedCheckedNames = [...state.checkedNames];
-      updatedCheckedNames[action.payload] = !updatedCheckedNames[action.payload];
+      updatedCheckedNames[action.payload] =
+        !updatedCheckedNames[action.payload];
       return { ...state, checkedNames: updatedCheckedNames };
-      
-    case 'SET_SHOW_LIMIT_POPUP':
+
+    case "SET_SHOW_LIMIT_POPUP":
       return { ...state, showLimitPopup: action.payload };
-    case 'SET_SHOW_EMPTY_POPUP':
-      return {...state, showEmptyPopup : action.payload}
-    case 'SET_SHOW_LIST':
+    case "SET_SHOW_EMPTY_POPUP":
+      return { ...state, showEmptyPopup: action.payload };
+    case "SET_SHOW_LIST":
       return { ...state, showList: action.payload };
-    case 'DELETE_CHECKED_NAMES':
+    case "DELETE_CHECKED_NAMES":
       const newState = { ...state };
       for (let i = state.checkedNames.length - 1; i >= 0; i--) {
-        if (state.checkedNames[i]) {
+        if (state.checkedNames[i] === true) {
           newState.displayNames.splice(i, 1);
         }
       }
       for (let i = state.checkedNames.length - 1; i >= 0; i--) {
-        if (state.checkedNames[i]) {
+        if (state.checkedNames[i]=== true) {
           newState.checkedNames.splice(i, 1);
         }
       }
-      
+
       return newState;
     default:
       return state;
