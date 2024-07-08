@@ -5,55 +5,62 @@ import Trash from "./trash.svg";
 import { useTodos } from "./TodoContext";
 
 function AppContent() {
-  const { state, dispatch } = useTodos();
+  const {
+    state,
+    toggleName,
+    removeName,
+    addName,
+    setShowInput,
+    setShowLimitPopup,
+    setShowEmptyPopup,
+    setShowList,
+    setName,
+    deleteCheckedNames,
+  } = useTodos();
 
   const handleSubmit = () => {
-    dispatch({ type: "ADD_NAME", payload: state.name });
+    addName();
   };
+
   useEffect(() => {
     if (state.displayNames.length > 9) {
-      dispatch({ type: "SET_SHOW_LIMIT_POPUP", payload: true });
+      setShowLimitPopup(true);
     }
     if (state.displayNames.length === 0) {
-      dispatch({
-        type: "SET_SHOW_EMPTY_POPUP",
-        payload: !state.showEmptyPopup,
-      });
-      dispatch({ type: "SET_SHOW_LIST", payload: false });
+      setShowEmptyPopup(!state.showEmptyPopup);
+      setShowList(false);
     } else {
-      dispatch({ type: "SET_SHOW_EMPTY_POPUP", payload: false });
-      dispatch({ type: "SET_SHOW_LIST", payload: true });
+      setShowEmptyPopup(false);
+      setShowList(true);
     }
   }, [state.displayNames]);
 
   const handleOpenPopup = () => {
-    dispatch({ type: "SET_SHOW_INPUT", payload: true });
+    setShowInput(true);
     if (state.displayNames.length > 9) {
-      dispatch({ type: "SET_SHOW_LIMIT_POPUP", payload: true });
+      setShowLimitPopup(true);
     }
   };
 
   const handleClose = () => {
-    dispatch({ type: "SET_SHOW_INPUT", payload: false });
-    dispatch({ type: "SET_SHOW_LIMIT_POPUP", payload: false });
-    dispatch({ type: "SET_SHOW_EMPTY_POPUP", payload: false });
-
-    dispatch({ type: "SET_NAME", payload: "" });
+    setShowInput(false);
+    setShowLimitPopup(false);
+    setShowEmptyPopup(false);
+    setName("");
   };
 
   const handleChangeName = (e) => {
-    dispatch({ type: "SET_NAME", payload: e.target.value });
+    setName(e.target.value);
   };
 
   const handleEmptyPopupClose = () => {
-    dispatch({ type: "SET_SHOW_EMPTY_POPUP", payload: false });
-    dispatch({ type: "SET_SHOW_INPUT", payload: true });
+    setShowEmptyPopup(false);
+    setShowInput(true);
   };
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
-      dispatch({ type: "ADD_NAME", payload: state.name });
-      dispatch({ type: "SET_NAME", payload: "" });
+      addName();
     }
     if (event.keyCode === 27) {
       handleClose();
@@ -61,25 +68,22 @@ function AppContent() {
   };
 
   const handleDeleteItem = (index) => {
-    dispatch({ type: "REMOVE_NAME", payload: index });
+    removeName(index);
   };
 
   const handleCheckboxChange = (index) => {
-    dispatch({ type: "TOGGLE_NAME", payload: index });
+    toggleName(index);
   };
 
   const handleDelete = () => {
-    dispatch({ type: "DELETE_CHECKED_NAMES" });
+    deleteCheckedNames();
     setTimeout(() => {
       if (state.displayNames.length === 0) {
-        dispatch({ type: "SET_SHOW_LIST", payload: false });
-        dispatch({ type: "SET_SHOW_EMPTY_POPUP", payload: !state.showEmptyPopup,});
+        setShowList(false);
+        setShowEmptyPopup(!state.showEmptyPopup);
       }
-    }, 0); 
-    
-    
+    }, 0);
   };
-  console.log(state.displayNames);
 
   return (
     <div className="App">
@@ -200,4 +204,5 @@ function AppContent() {
     </div>
   );
 }
+
 export { AppContent };
