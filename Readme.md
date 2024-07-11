@@ -303,4 +303,84 @@ Gọi callback mỗi khi component re-render
 Gọi callback sau khi component thêm element vào DOM
 2. useEffect(callback,[])
 Chỉ gọi callback 1 lần sau khi component mounted
+```JavaScript
+function App() {
+  const [items, setItems]=useState([]); 
+  useEffect(() => {
+    fetch('https://667c22983c30891b865b7a54.mockapi.io/fruit/fruit')
+    .then (res => res.json())
+    .then(items => {
+      setItems(items)
+    })
+    
+  },[])
+ 
+  return (
+    <div className="App">
+      <ul>
+        {items.map(item => (
+          
+          <li key={item.id}>{item.name}</li>
+          
+        ))}
+      </ul>
+      {/* {items.map(item => (
+        
+        <p>{item.content}</p>
+        
 
+      ))} */}
+    </div>
+  );
+}
+
+```
+```Javascript
+function App() {
+  const [items, setItems] = useState([]);
+  const [find,setFind] =useState ("ti");
+  
+  useEffect(() => {
+    fetch('https://65336a41d80bd20280f67871.mockapi.io/text')
+      .then(res => res.json())
+      .then(items => {
+        setItems(items);
+      });
+  }, []);
+  const handleFindName = () => {
+    
+  }
+
+const handleChangeName = (e) => {
+  setFind(e.target.value)
+}
+
+  const nameTi = items.filter(item => item.name.includes(find));
+  return (
+    <div className="App">
+     <input
+     type='text'
+     onClick={handleFindName}
+     onChange={handleChangeName}
+     />
+      {items
+      
+
+      
+        .filter(item => item.name.includes(find))
+        
+        .map(item => (
+          
+          <div key={item.id}>
+            <p>{item.name}</p>
+            <img src={item.avatar} alt={item.name} />
+          </div>
+        ))}
+            <p>{nameTi.length}</p>
+
+
+    </div>
+  );
+}
+
+```
