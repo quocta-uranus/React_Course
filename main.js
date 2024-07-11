@@ -66,19 +66,47 @@
 // heading.title = "heading";
 // heading.setAttribute("data-title", "Heading");
 
-const getHeading = document.querySelector('h1');
-getHeading.innerText = 'TRAN ANH QUOC';
+// const getHeading = document.querySelector('h1');
+// getHeading.innerText = 'TRAN ANH QUOC';
 
-var courses = ['HTML & CSS', 'Javascript', 'PHP', 'Java'];
-var coursesList = document.querySelector('#courses-list');
-var coursesHTML = courses.map(function(course) {
-    return '<li>' + course + '</li>';
-});
-coursesList.innerHTML = coursesHTML.join('');
+// var courses = ['HTML & CSS', 'Javascript', 'PHP', 'Java'];
+// var coursesList = document.querySelector('#courses-list');
+// var coursesHTML = courses.map(function(course) {
+//     return '<li>' + course + '</li>';
+// });
+// coursesList.innerHTML = coursesHTML.join('');
 
-//DOM CSS
-coursesList.style.backgroundColor = '#f2f2f2'; 
-coursesList.style.borderRadius = '5px'; 
-coursesList.style.padding = '10px'; 
+// //DOM CSS
+// coursesList.style.backgroundColor = '#f2f2f2'; 
+// coursesList.style.borderRadius = '5px'; 
+// coursesList.style.padding = '10px'; (
 
+function showPopup() {
+  document.getElementById("myPopup").style.display = "block"
+}
+
+function hidePopup() {
+  document.getElementById("myPopup").style.display = "none";
+
+ 
+}
+function addItem() {
+  const inputValue = document.getElementById("myInput").value;
+  const submitBtn = document.getElementById("subId");
+  if (inputValue === '') {
+    submitBtn.style.disable = "true";
+  } else {
+      const li = document.createElement("li");
+      li.textContent = inputValue;
+      document.querySelector(".list").appendChild(li);
+      const btn = document.createElement("button");
+    btn.textContent = "X";
+    btn.onclick = function() {
+      document.querySelector(".list").removeChild(li);
+    };
+    li.appendChild(btn);
+      document.getElementById("myInput").value = "";
+      hidePopup();
+  }
+}
 
