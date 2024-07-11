@@ -17,9 +17,14 @@ function AppContent() {
     setName,
     deleteCheckedNames,
   } = useTodos();
+  
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     addName();
+    e.preventDefault();
+    // alert(state.name);
+
+    
   };
 
   useEffect(() => {
@@ -46,12 +51,14 @@ function AppContent() {
     setShowInput(false);
     setShowLimitPopup(false);
     setShowEmptyPopup(false);
-    setName("");
+    // setName("");
+    
   };
 
   const handleChangeName = (e) => {
     setName(e.target.value);
   };
+  
 
   const handleEmptyPopupClose = () => {
     setShowEmptyPopup(false);
@@ -84,6 +91,13 @@ function AppContent() {
       }
     }, 0);
   };
+  const handleInput = (e) => {
+    alert(state.name);
+    e.preventDefault();
+
+  }
+  console.log(state);
+
 
   return (
     <div className="App">
@@ -98,9 +112,11 @@ function AppContent() {
               alt="close"
             />
           </div>
+        <form onSubmit={handleSubmit}>
 
           <input
             type="text"
+            id="myInput"
             value={state.name}
             className="input"
             onChange={handleChangeName}
@@ -110,7 +126,7 @@ function AppContent() {
           <div className="btn">
             <button
               className="sub-btn"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
               disabled={!state.name.trim()}
             >
               Submit
@@ -119,6 +135,9 @@ function AppContent() {
               X
             </button>
           </div>
+        </form>
+
+          
         </div>
       )}
 

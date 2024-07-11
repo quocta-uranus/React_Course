@@ -35,13 +35,14 @@ const todoReducer = (state, action) => {
   switch (action.type) {
     case "SET_SHOW_INPUT":
       return { ...state, showInput: action.payload };
-    case "SET_NAME":
-      return { ...state, name: action.payload };
+    // case "SET_NAME":
+    //   return { ...state, name: action.payload  };
+     
     case "ADD_NAME":
       return {
         ...state,
         displayNames: [...state.displayNames, action.payload],
-        name: "",
+        name: action.payload ,
         showInput: false,
       };
     case "REMOVE_NAME":
@@ -78,6 +79,7 @@ const TodoProvider = ({ children }) => {
   const setShowInput = (showInput) =>
     dispatch({ type: "SET_SHOW_INPUT", payload: showInput });
   const setName = (name) => dispatch({ type: "SET_NAME", payload: name });
+
   const addName = () => dispatch({ type: "ADD_NAME", payload: state.name });
   const removeName = (index) =>
     dispatch({ type: "REMOVE_NAME", payload: index });
@@ -89,7 +91,8 @@ const TodoProvider = ({ children }) => {
     dispatch({ type: "SET_SHOW_EMPTY_POPUP", payload: show });
   const setShowList = (show) =>
     dispatch({ type: "SET_SHOW_LIST", payload: show });
-  const deleteCheckedNames = () => dispatch({ type: "DELETE_CHECKED_NAMES" });
+  const deleteCheckedNames = () =>
+     dispatch({ type: "DELETE_CHECKED_NAMES" });
 
   return (
     <TodoContext.Provider
@@ -108,6 +111,8 @@ const TodoProvider = ({ children }) => {
     >
       {children}
     </TodoContext.Provider>
+
+
   );
 };
 
