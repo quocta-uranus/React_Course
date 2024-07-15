@@ -122,6 +122,7 @@ p.addEventListener("mouseup", changeHeading);
 //   getHeading[getHeading.length - 1].innerText = 'Heading1';
 
 // })
+
 document.querySelector("input").addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     const getHeading = document.querySelectorAll("h1");
