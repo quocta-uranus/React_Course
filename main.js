@@ -141,3 +141,40 @@ document.querySelector("input").addEventListener("input", function () {
     getHeading[getHeading.length - 1].innerText = "Heading 10";
   }
 });
+
+var postApi = 'https://65336a41d80bd20280f67871.mockapi.io/text';
+fetch(postApi)
+  .then(function(response) {
+    return response.json();
+    
+  })
+  .then(function(post){
+    console.log(post);
+    var htmls = post.map(function(item) {
+      return `<h2> ${item.name}</h2>`;
+     
+    });
+    var html = htmls.join('');
+    document.getElementById('AppId').innerHTML = html;
+  });
+
+async function getData() {
+  const url = 'https://65336a41d80bd20280f67871.mockapi.io/text';
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+   var htmls = json.map(item => {
+        return `<h2> ${item.name}</h2>`;
+    })
+      var html = htmls.join('');
+      document.getElementById('AppId').innerHTML = html;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+getData();

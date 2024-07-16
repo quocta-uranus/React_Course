@@ -535,6 +535,7 @@ document.querySelector("input").addEventListener("input", function () {
 **JSON**
 JSON sử dụng các cặp key – value để dữ liệu sử dụng. Nó hỗ trợ các cấu trúc dữ liệu như đối tượng và mảng
 
+JSON: Number, Boolean, Null, Array,Object
 Kiểu OBJECT
 ```JavaScript
  const fruit = {
@@ -571,3 +572,48 @@ const fruits = [
 
  ]
  ```
+API
+Backend -> API -> Fetch -> JSON/XML
+JSON.parse -> JavaScript types
+Render ra giao dien voi HTML
+1. Fetch API với Promises
+```JavaScript
+var postApi = 'https://65336a41d80bd20280f67871.mockapi.io/text';
+fetch(postApi)
+  .then(function(response) {
+    return response.json();
+    
+  })
+  .then(function(post){
+    console.log(post);
+    var htmls = post.map(function(item) {
+      return `<h2> ${item.name}</h2>`;
+     
+    });
+    var html = htmls.join('');
+    document.getElementById('AppId').innerHTML = html;
+  });
+```
+2. Fetch API với async/await
+```JavaScript
+async function getData() {
+  const url = 'https://65336a41d80bd20280f67871.mockapi.io/text';
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+   var htmls = json.map(item => {
+        return `<h2> ${item.name}</h2>`;
+    })
+      var html = htmls.join('');
+      document.getElementById('AppId').innerHTML = html;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+getData();
+```
